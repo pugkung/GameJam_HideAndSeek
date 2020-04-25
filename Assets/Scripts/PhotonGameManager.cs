@@ -26,8 +26,8 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
             if (PlayerManager.LocalPlayerInstance == null)
             {
                 Debug.Log("Spawning player");
-                //Vector3 randomPosition = new Vector3(Random.Range(-40.0f, 4.0f), 1.0f, Random.Range(-21.0f,3.5f));
-                Vector3 randomPosition = new Vector3(0, 1.0f, 0);
+                Vector3 randomPosition = new Vector3(Random.Range(-40.0f, 4.0f), 1.0f, Random.Range(-21.0f,3.5f));
+                //Vector3 randomPosition = new Vector3(0, 1.0f, 0);
                 PhotonNetwork.Instantiate(this.PlayerPrefab.name, randomPosition, Quaternion.identity, 0);
             }
             else

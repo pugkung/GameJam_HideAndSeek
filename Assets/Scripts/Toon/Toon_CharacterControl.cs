@@ -38,6 +38,10 @@ public class Toon_CharacterControl : MonoBehaviourPunCallbacks, IPunInstantiateM
             {
                 Player_SpotLight.SetActive(true);
             }
+            else
+            {
+                PlayerGo.tag = "OtherPlayer";
+            }
 
             // setup camera on 'my' controllable character only
             CamGo = GameObject.Find("Main Camera");
@@ -120,6 +124,12 @@ public class Toon_CharacterControl : MonoBehaviourPunCallbacks, IPunInstantiateM
             foreach (Light light in allPlayerLights)
             {
                 light.enabled = false;
+            }
+
+            Canvas[] allPlayerUI = gameObject.GetComponentsInChildren<Canvas>();
+            foreach (Canvas ui in allPlayerUI)
+            {
+                ui.enabled = false;
             }
         }
     }
