@@ -19,6 +19,7 @@ public class PhotonLobbyManager : MonoBehaviourPunCallbacks
     private Button btnStartGame;
     private InputField txtPlayerName;
 
+    private bool playerReady;
     private string output;
     private string playerName;
 
@@ -29,6 +30,8 @@ public class PhotonLobbyManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        playerReady = false;
+
         try {
             btnJoinRoom = JoinRoomButton.GetComponent<Button>();
             btnStartGame = StartGameButton.GetComponent<Button>();
@@ -67,7 +70,11 @@ public class PhotonLobbyManager : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.InRoom)
             {
-                txtDebug.text = "Current players: " + PhotonNetwork.CurrentRoom.PlayerCount.ToString();
+                txtDebug.text = "Current players: " + PhotonNetwork.CurrentRoom.PlayerCount.ToString() + "\n";
+                foreach (Player p in PhotonNetwork.PlayerList)
+                {
+                    txtDebug.text += p.NickName + " | ";
+                }
             }
             else
             {
@@ -94,8 +101,11 @@ public class PhotonLobbyManager : MonoBehaviourPunCallbacks
 
     public void JoinRoom()
     {
+        btnJoinRoom.image.color = Color.yellow;
+
         if (!PhotonNetwork.InRoom)
         {
+            txtPlayerName.interactable = false;
             playerName = txtPlayerName.text;
             PlayerPrefs.SetString(playerNamePrefKey, playerName);
             PhotonNetwork.NickName = playerName;
@@ -104,13 +114,53 @@ public class PhotonLobbyManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            PhotonNetwork.LeaveRoom();
+            LeaveRoom();
         }
     }
 
     public void LeaveRoom()
     {
+        txtPlayerName.interactable = true;
+        btnJoinRoom.image.color = Color.white;
         PhotonNetwork.LeaveRoom();
+    }
+
+    public void PlayerReady()
+    {
+        // toggle ready status
+        playerReady = !playerReady;
+        PhotonNetwork.LocalPlayer.CustomProperties["ready"] = true;
+
+        if (playerReady)
+        {
+            btnStartGame.image.color = Color.green;
+            if (isAllPlayersReady())
+            {
+                if (PhotonNetwork.IsMasterClient) {
+                    PhotonNetwork.LoadLevel("PhotonTest_Game");
+                }
+            }
+        }
+        else
+        {
+            btnStartGame.image.color = Color.white;
+            PhotonNetwork.LocalPlayer.CustomProperties["ready"] = false;
+        }
+    }
+
+    private bool isAllPlayersReady()
+    {
+        foreach (Player p in PhotonNetwork.PlayerList)
+        {
+            object readyVal;
+            Debug.Log(p.CustomProperties.TryGetValue("ready", out readyVal));
+            if (readyVal is bool && (bool) readyVal == false)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /// <summary>
