@@ -30,7 +30,7 @@ public class Toon_GameCore : MonoBehaviour
         GameObject[] AllPlayers = GameObject.FindGameObjectsWithTag("OtherPlayer");
         foreach (GameObject Player in AllPlayers){
            if (collAreaPlayer.bounds.Contains (Player.transform.position) && Player != null) {
-               Destroy(Player);
+            //   Destroy(Player);
            }
         }
         bool IsHitByEnemy = false;

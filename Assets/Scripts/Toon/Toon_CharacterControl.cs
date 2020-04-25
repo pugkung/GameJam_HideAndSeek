@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Toon_CharacterControl : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
+
 {
     public GameObject PlayerGo;
     public GameObject PlayerGraphic;
@@ -15,6 +16,10 @@ public class Toon_CharacterControl : MonoBehaviourPunCallbacks, IPunInstantiateM
 
     public Vector3 PlayerScaleOriginal;
     public float MoveSpeed;
+    public int id;
+
+    public GameObject[] AnimWalk;
+    public GameObject[] AnimIdle;
 
     public GameObject CamGo;
     //private CameraWork playerCam;
@@ -30,7 +35,9 @@ public class Toon_CharacterControl : MonoBehaviourPunCallbacks, IPunInstantiateM
 
             // show player name
             PlayerNameUI.GetComponent<Text>().text = PhotonNetwork.LocalPlayer.NickName;
-
+            id = PhotonNetwork.LocalPlayer.ActorNumber;
+            PlayerGraphic_walk = AnimWalk[id ];
+            PlayerGraphic_idle = AnimIdle[id ];
             // check my role
             object myRole;
             PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("role", out myRole);
@@ -59,6 +66,7 @@ public class Toon_CharacterControl : MonoBehaviourPunCallbacks, IPunInstantiateM
     }
 
     void Update() {
+      
         float CurrentMoveSpeed = MoveSpeed;
         bool IsWalk = false;
          if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)){

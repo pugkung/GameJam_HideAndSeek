@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: f53a864cf4db34393b5f391ee45e1aa2
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Blood Crow Leftalic
+  fontNames:
+  - Blood Crow Leftalic
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 494bba189f45a1c4ca75e983ac924f22, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 6c384cf1a1dfe44bdbbc2c3273f9dfc4
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Blood Crow Condensed Italic
+  fontNames:
+  - Blood Crow Condensed Italic
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 6d4b1f108519d254fa17a49d5ff65dae, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
