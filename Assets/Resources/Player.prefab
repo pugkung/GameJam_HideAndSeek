@@ -593,6 +593,8 @@ MonoBehaviour:
   PlayerGraphic: {fileID: 6854501746752153766}
   PlayerGraphic_walk: {fileID: 6854501746433523761}
   PlayerGraphic_idle: {fileID: 6854501747410695498}
+  Player_SpotLight: {fileID: 6854501746605069631}
+  PlayerNameUI: {fileID: 842805079045403908}
   PlayerScaleOriginal: {x: 0, y: 0, z: 0}
   MoveSpeed: 0.15
   CamGo: {fileID: 0}
@@ -746,6 +748,12 @@ GameObject:
 --- !u!1 &8539118845653850014 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8730321228558821875, guid: ffd91f174363d57468762345b86dd96a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1128538459355905645}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &842805079045403908 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 295937398177729385, guid: ffd91f174363d57468762345b86dd96a,
     type: 3}
   m_PrefabInstance: {fileID: 1128538459355905645}
   m_PrefabAsset: {fileID: 0}
