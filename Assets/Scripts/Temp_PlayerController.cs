@@ -10,6 +10,7 @@ public class Temp_PlayerController : MonoBehaviourPunCallbacks
     private PlayerManager target;
     private CameraWork playerCam;
     private Text playerNameText;
+    private int playerID;
     private float speed = 5.0f;
 
 
@@ -56,6 +57,7 @@ public class Temp_PlayerController : MonoBehaviourPunCallbacks
         if (playerNameText != null)
         {
             playerNameText.text = target.photonView.Owner.NickName;
+            playerID = target.photonView.Owner.ActorNumber;
         }
     }
 }
