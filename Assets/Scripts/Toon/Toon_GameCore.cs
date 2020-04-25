@@ -8,31 +8,21 @@ public class Toon_GameCore : MonoBehaviour
     private BoxCollider collAreaPlayer;
 
     public GameObject RedScreen;
+    public GameObject TextShake;
+
+    public GameObject[] AllTrees;
 
     void Start()
     {
         collAreaPlayer = goPlayer.gameObject.GetComponent<BoxCollider>();
-        
+        AllTrees = GameObject.FindGameObjectsWithTag("Tree");
     }
 
     // Update is called once per frame
     void Update(){
-        //string sRayCastObjectFound = "";
-        /*GameObject goHit = null;
-		Ray ray = Camera.main.ScreenPointToRay(new Vector2((Screen.width / 2), (Screen.height / 2)));
-		RaycastHit hit;
-		Physics.Raycast (ray,out hit,nEventObjectLength);
-		if (hit.collider != null) {
-			if (hit.collider.gameObject.tag == "Item") {
-				//sRayCastObjectFound = hit.collider.gameObject.name;
-                goHit = hit.collider.gameObject;
-                Debug.Log(hit.collider.gameObject.name);
-			} 
-		}*/
         GameObject[] AllItems = GameObject.FindGameObjectsWithTag("Item");
         foreach (GameObject Item in AllItems){
            if (collAreaPlayer.bounds.Contains (Item.transform.position) && Item.activeInHierarchy) {
-               //Item.SetActive(false);
                Destroy(Item);
            }
         }
@@ -40,10 +30,7 @@ public class Toon_GameCore : MonoBehaviour
         GameObject[] AllPlayers = GameObject.FindGameObjectsWithTag("OtherPlayer");
         foreach (GameObject Player in AllPlayers){
            if (collAreaPlayer.bounds.Contains (Player.transform.position) && Player != null) {
-               //Item.SetActive(false);
                Destroy(Player);
-               //GoHit = Player;
-               //break;
            }
         }
         bool IsHitByEnemy = false;
@@ -57,6 +44,23 @@ public class Toon_GameCore : MonoBehaviour
             RedScreen.SetActive(true);
         }else{
             RedScreen.SetActive(false);
+        }
+
+        bool IsInTreeArea = false;
+        foreach (GameObject Tree in AllTrees){
+           if (Tree.GetComponent<CapsuleCollider>().bounds.Contains (collAreaPlayer.transform.position) && Tree != null) {
+               IsInTreeArea = true;
+               if(Input.GetKey(KeyCode.Space)){
+                    Tree.SetActive(false);
+                    Tree.SetActive(true);
+                    Debug.Log(555);
+                }
+            }
+        }
+         if(IsInTreeArea){
+            TextShake.SetActive(true);
+        }else{
+            TextShake.SetActive(false);
         }
     }
 }
