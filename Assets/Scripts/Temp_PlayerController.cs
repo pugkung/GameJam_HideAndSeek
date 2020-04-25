@@ -18,7 +18,6 @@ public class Temp_PlayerController : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             PlayerManager.LocalPlayerInstance = this.gameObject;
-            PlayerName = PhotonNetwork.NickName;
 
             // setup camera on 'my' controllable character only
             playerCam = gameObject.AddComponent<CameraWork>();

@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using Photon.Pun.Demo.PunBasics;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Toon_CharacterControl : MonoBehaviour
+public class Toon_CharacterControl : MonoBehaviourPunCallbacks
 {
     public GameObject PlayerGo;
     public GameObject PlayerGraphic;
@@ -13,9 +15,27 @@ public class Toon_CharacterControl : MonoBehaviour
     public float MoveSpeed;
 
     public GameObject CamGo;
+    //private CameraWork playerCam;
     private Vector3 PlayerMovingDelta = new Vector3(0,0,0);
-  
-   void Start()
+
+    void Awake()
+    {
+        if (photonView.IsMine)
+        {
+            PlayerManager.LocalPlayerInstance = this.gameObject;
+
+            // setup camera on 'my' controllable character only
+            CamGo = GameObject.Find("Main Camera");
+
+            TransformFollower tf = CamGo.GetComponent<TransformFollower>();
+            tf.enabled = true;
+            tf.target = this.gameObject.transform;
+
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
+
+    void Start()
     {
         PlayerScaleOriginal = PlayerGraphic.transform.localScale;
     }

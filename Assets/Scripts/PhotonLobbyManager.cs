@@ -138,7 +138,8 @@ public class PhotonLobbyManager : MonoBehaviourPunCallbacks
             {
                 PhotonNetwork.CurrentRoom.IsOpen = false;
                 if (PhotonNetwork.IsMasterClient) {
-                    PhotonNetwork.LoadLevel("PhotonTest_Game");
+                    //PhotonNetwork.LoadLevel("PhotonTest_Game");
+                    PhotonNetwork.LoadLevel("Gameplay");
                 }
             }
         }

@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/PhotonTest_Lobby.unity
     guid: 7065b9bd5b90d1f41867325bf2721e06
   - enabled: 1
-    path: Assets/Scenes/PhotonTest_Game.unity
-    guid: 80bdefa75301ed44b9067a23f8e38c18
+    path: Assets/Scenes/Gameplay.unity
+    guid: 73573730e65954e90afcff3b7ca64d43
   m_configObjects: {}
