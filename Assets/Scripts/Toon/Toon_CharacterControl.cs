@@ -4,7 +4,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Toon_CharacterControl : MonoBehaviourPunCallbacks
+public class Toon_CharacterControl : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
 {
     public GameObject PlayerGo;
     public GameObject PlayerGraphic;
@@ -41,15 +41,6 @@ public class Toon_CharacterControl : MonoBehaviourPunCallbacks
 
             // setup camera on 'my' controllable character only
             CamGo = GameObject.Find("Main Camera");
-
-            // I should not see anyone else
-            foreach (Player player in PhotonNetwork.PlayerList)
-            {
-                if(PhotonNetwork.LocalPlayer != player)
-                {
-                    // TODO
-                }
-            }
 
             TransformFollower tf = CamGo.GetComponent<TransformFollower>();
             tf.enabled = true;
@@ -99,7 +90,7 @@ public class Toon_CharacterControl : MonoBehaviourPunCallbacks
     void RandomAssignPlayerRole()
     {
         int totalPlayers = PhotonNetwork.PlayerList.Length;
-        int seekerPlayer = Random.Range(-1, totalPlayers) + 1;
+        int seekerPlayer = Random.Range(0, totalPlayers);
 
         for (int i=0; i< totalPlayers; i++)
         {
@@ -110,6 +101,25 @@ public class Toon_CharacterControl : MonoBehaviourPunCallbacks
             else
             {
                 PhotonNetwork.PlayerList[i].CustomProperties["role"] = "hider";
+            }
+        }
+    }
+
+    public void OnPhotonInstantiate(Photon.Pun.PhotonMessageInfo info)
+    {
+        // Hide everyone beside me
+        if (!info.Sender.IsLocal)
+        {
+            Renderer[] allRenderers = gameObject.GetComponentsInChildren<Renderer>();
+            foreach (Renderer renderer in allRenderers)
+            {
+                renderer.enabled = false;
+            }
+
+            Light[] allPlayerLights = gameObject.GetComponentsInChildren<Light>();
+            foreach (Light light in allPlayerLights)
+            {
+                light.enabled = false;
             }
         }
     }
