@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: dd86b16758beb48b586ef0c0b3e5e585
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Blood Crow Shadow
+  fontNames:
+  - Blood Crow Shadow
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0e33c129d49ab144cbd05b15487ece43, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
