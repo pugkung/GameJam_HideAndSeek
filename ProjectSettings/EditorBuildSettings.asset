@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PhotonTest_Lobby.unity
     guid: 7065b9bd5b90d1f41867325bf2721e06
+  - enabled: 1
+    path: Assets/Scenes/PhotonTest_Game.unity
+    guid: 80bdefa75301ed44b9067a23f8e38c18
   m_configObjects: {}
