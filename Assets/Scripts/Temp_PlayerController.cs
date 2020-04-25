@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Temp_PlayerController : MonoBehaviourPunCallbacks
 {
     private PlayerManager target;
+    private CameraWork playerCam;
     private Text playerNameText;
     private float speed = 5.0f;
 
@@ -17,6 +18,12 @@ public class Temp_PlayerController : MonoBehaviourPunCallbacks
         if (photonView.IsMine)
         {
             PlayerManager.LocalPlayerInstance = this.gameObject;
+            PlayerName = PhotonNetwork.NickName;
+
+            // setup camera on 'my' controllable character only
+            playerCam = gameObject.AddComponent<CameraWork>();
+            playerCam.OnStartFollowing();
+
         }
         DontDestroyOnLoad(this.gameObject);
     }

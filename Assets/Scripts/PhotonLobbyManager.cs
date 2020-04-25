@@ -136,6 +136,7 @@ public class PhotonLobbyManager : MonoBehaviourPunCallbacks
             btnStartGame.image.color = Color.green;
             if (isAllPlayersReady())
             {
+                PhotonNetwork.CurrentRoom.IsOpen = false;
                 if (PhotonNetwork.IsMasterClient) {
                     PhotonNetwork.LoadLevel("PhotonTest_Game");
                 }
@@ -153,7 +154,7 @@ public class PhotonLobbyManager : MonoBehaviourPunCallbacks
         foreach (Player p in PhotonNetwork.PlayerList)
         {
             object readyVal;
-            Debug.Log(p.CustomProperties.TryGetValue("ready", out readyVal));
+            p.CustomProperties.TryGetValue("ready", out readyVal);
             if (readyVal is bool && (bool) readyVal == false)
             {
                 return false;
