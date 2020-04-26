@@ -17,6 +17,7 @@ public class Toon_CharacterControl : MonoBehaviourPunCallbacks, IPunInstantiateM
     public Vector3 PlayerScaleOriginal;
     public float MoveSpeed;
     public int id;
+    public bool player = false;
 
     public GameObject[] AnimWalk;
     public GameObject[] AnimIdle;
@@ -28,16 +29,14 @@ public class Toon_CharacterControl : MonoBehaviourPunCallbacks, IPunInstantiateM
     void Awake()
     {
         RandomAssignPlayerRole();
-
+        PlayerGraphic_(photonView.CreatorActorNr%3);
         if (photonView.IsMine)
         {
             PlayerManager.LocalPlayerInstance = this.gameObject;
-
+            player = true;
             // show player name
             PlayerNameUI.GetComponent<Text>().text = PhotonNetwork.LocalPlayer.NickName;
-            id = PhotonNetwork.LocalPlayer.ActorNumber;
-            PlayerGraphic_walk = AnimWalk[id ];
-            PlayerGraphic_idle = AnimIdle[id ];
+       
             // check my role
             object myRole;
             PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue("role", out myRole);
@@ -57,43 +56,66 @@ public class Toon_CharacterControl : MonoBehaviourPunCallbacks, IPunInstantiateM
             tf.enabled = true;
             tf.target = this.gameObject.transform;
         }
-        DontDestroyOnLoad(this.gameObject);
+        else
+        {
+           
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
+
+    public void PlayerGraphic_(int i)
+    {
+        id = i;
+        PlayerGraphic_walk = AnimWalk[id];
+        PlayerGraphic_idle = AnimIdle[id];
     }
 
     void Start()
     {
-        PlayerScaleOriginal = PlayerGraphic.transform.localScale;
+          PlayerScaleOriginal = PlayerGraphic.transform.localScale;
     }
 
     void Update() {
-      
-        float CurrentMoveSpeed = MoveSpeed;
         bool IsWalk = false;
-         if(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)){
-            CurrentMoveSpeed *= 3;
+        if (player)
+        {
+            float CurrentMoveSpeed = MoveSpeed;
+           
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            {
+                CurrentMoveSpeed *= 3;
+            }
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                PlayerGo.transform.position += new Vector3(-CurrentMoveSpeed, 0, 0);
+                PlayerGraphic.transform.localScale = new Vector3(-PlayerScaleOriginal.x, PlayerScaleOriginal.y, PlayerScaleOriginal.z);
+                IsWalk = true;
+            }
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
+                PlayerGo.transform.position += new Vector3(CurrentMoveSpeed, 0, 0);
+                PlayerGraphic.transform.localScale = new Vector3(PlayerScaleOriginal.x, PlayerScaleOriginal.y, PlayerScaleOriginal.z);
+                IsWalk = true;
+            }
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+            {
+                PlayerGo.transform.position += new Vector3(0, 0, CurrentMoveSpeed);
+                IsWalk = true;
+            }
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            {
+                PlayerGo.transform.position += new Vector3(0, 0, -CurrentMoveSpeed);
+                IsWalk = true;
+            }
+           
         }
-        if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)){
-            PlayerGo.transform.position += new Vector3(-CurrentMoveSpeed,0,0);
-            PlayerGraphic.transform.localScale = new Vector3(-PlayerScaleOriginal.x,PlayerScaleOriginal.y,PlayerScaleOriginal.z);
-            IsWalk = true;
-        }
-        if(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)){
-            PlayerGo.transform.position += new Vector3(CurrentMoveSpeed,0,0);
-            PlayerGraphic.transform.localScale = new Vector3(PlayerScaleOriginal.x,PlayerScaleOriginal.y,PlayerScaleOriginal.z);
-            IsWalk = true;
-        }
-        if(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)){
-            PlayerGo.transform.position += new Vector3(0,0,CurrentMoveSpeed);
-            IsWalk = true;
-        }
-        if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)){
-            PlayerGo.transform.position += new Vector3(0,0,-CurrentMoveSpeed);
-            IsWalk = true;
-        }
-        if(IsWalk){
+        if (IsWalk)
+        {
             PlayerGraphic_walk.SetActive(true);
             PlayerGraphic_idle.SetActive(false);
-        }else{
+        }
+        else
+        {
             PlayerGraphic_walk.SetActive(false);
             PlayerGraphic_idle.SetActive(true);
         }

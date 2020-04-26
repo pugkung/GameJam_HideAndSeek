@@ -1030,13 +1030,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerGo: {fileID: 6854501748281519870}
   PlayerGraphic: {fileID: 6854501746752153766}
-  PlayerGraphic_walk: {fileID: 0}
-  PlayerGraphic_idle: {fileID: 0}
+  PlayerGraphic_walk: {fileID: 6854501746433523761}
+  PlayerGraphic_idle: {fileID: 6854501747410695498}
   Player_SpotLight: {fileID: 6854501746605069631}
   PlayerNameUI: {fileID: 1128538459355905099}
   PlayerScaleOriginal: {x: 0, y: 0, z: 0}
   MoveSpeed: 0.15
   id: 0
+  player: 0
   AnimWalk:
   - {fileID: 6854501746433523761}
   - {fileID: 3703365373333782765}
